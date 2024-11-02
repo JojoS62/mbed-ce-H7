@@ -8,6 +8,11 @@ cmake_policy(VERSION 3.19)
 ######################################################################################################
 ### Block of including .json5 files. Files of this block must be included before the app.cmake
 
+# set debug options for unkown targets
+set(STM32CUBE_UPLOAD_ENABLED TRUE)
+set(STM32CUBE_CONNECT_COMMAND "-c port=SWD reset=HWrst")
+set(STM32CUBE_GDBSERVER_ARGS "--swd") 
+
 #[[ Set path of mbed_app.json (necessary everytime if mbed_app.json5 is in project) ]]
 set(MBED_APP_JSON_PATH mbed_app.json5)
 
@@ -55,8 +60,10 @@ add_subdirectory(mbed-os)
 ### Set up your project name (necessary everytime)
 project(MbedCEHelloWorld)
 
+add_subdirectory(app_hello EXCLUDE_FROM_ALL)
+
 ### add executable (necessary everytime)
-add_executable(${CMAKE_PROJECT_NAME} main.cpp)
+#add_executable(${CMAKE_PROJECT_NAME} main.cpp)
 
 ######################################################################################################
 ### Link libraries block
@@ -64,7 +71,7 @@ add_executable(${CMAKE_PROJECT_NAME} main.cpp)
 https://github.com/mbed-ce/mbed-os/wiki/MbedOS-configuration#configuration-via-cmake-files]]
 
 #[[link MbedOS and its libraries (necessary everytime)]]
-target_link_libraries(${CMAKE_PROJECT_NAME}  mbed-os) 
+# target_link_libraries(${CMAKE_PROJECT_NAME}  mbed-os) 
 
 ### link user library (if needed)
 #target_link_libraries(${CMAKE_PROJECT_NAME} YourLibrary) 
@@ -73,7 +80,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}  mbed-os)
 ######################################################################################################
 
 ### Set post build (necessary everytime)
-mbed_set_post_build(${CMAKE_PROJECT_NAME})
+# mbed_set_post_build(${CMAKE_PROJECT_NAME})
 #[[Or in case of custom linker script which should be placed like this
    directory PROJECT_NAME/custom_targets/MBED_TARGET/MBED_TARGET.ld]]
 #mbed_set_post_build(${CMAKE_PROJECT_NAME}  ${CMAKE_SOURCE_DIR}/custom_targets/${MBED_TARGET}/${MBED_TARGET}.ld)

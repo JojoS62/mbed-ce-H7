@@ -1,0 +1,30 @@
+buildType:
+  default: debug
+  choices:
+    Debug:
+      short: debug
+      long: Emit debug information and don't optimize
+      buildType: debug
+    Release:
+      short: release
+      long: Optimize generated code
+      buildType: release
+      
+board:
+  default: NUCLEO_G071RB_STM32CUBE
+  choices:
+    NUCLEO_G071RB_STM32CUBE:
+      short: NUCLEO_G071RB STMCube
+      settings:
+        MBED_TARGET: NUCLEO_G071RB
+        UPLOAD_METHOD: STM32CUBE
+    NUCLEO_H743ZI2_STM32CUBE:
+      short: NUCLEO_H743ZI2 STM32CUBE
+      settings:
+        MBED_TARGET: NUCLEO_H743ZI2
+        UPLOAD_METHOD: STM32CUBE
+    FK743M2_IIT6_STM32CUBE:
+      short: FK743M2_IIT6 STM32CUBE
+      settings:
+        MBED_TARGET: FK743M2_IIT6
+        UPLOAD_METHOD: STM32CUBE
