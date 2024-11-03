@@ -21,7 +21,7 @@ set(MBED_APP_JSON_PATH mbed_app.json5)
     custom_targets.json5 and upload method config, otherwise functions below should be commented. ]]
 
 #[[ Here set path for custom_targets.json5 (this is our default) ]]
-#set(CUSTOM_TARGETS_JSON_PATH custom_targets/custom_targets.json5) 
+set(CUSTOM_TARGETS_JSON_PATH custom_targets/custom_targets.json5) 
 
 #[[ Here you can set path for custom upload config .cmake (optional example) ]]
 #set(CUSTOM_UPLOAD_CFG_PATH ${CMAKE_SOURCE_DIR}/${MBED_TARGET}/${MBED_TARGET}.cmake)
@@ -44,7 +44,7 @@ include(mbed-os/tools/cmake/app.cmake)
 
 #[[ If using a custom target, the subdirectory containing the custom target must be included before 
     the mbed-os subdir, otherwise the next line should be commented]]
-#add_subdirectory(custom_targets)
+add_subdirectory(custom_targets)
 
 ###--------------------------------------------------------------------------------------------------
 ## Add mbed-os subdirectory (necessary everytime)
@@ -60,10 +60,10 @@ add_subdirectory(mbed-os)
 ### Set up your project name (necessary everytime)
 project(MbedCEHelloWorld)
 
-add_subdirectory(app_hello EXCLUDE_FROM_ALL)
-
 ### add executable (necessary everytime)
 #add_executable(${CMAKE_PROJECT_NAME} main.cpp)
+add_subdirectory(app_hello EXCLUDE_FROM_ALL)
+
 
 ######################################################################################################
 ### Link libraries block

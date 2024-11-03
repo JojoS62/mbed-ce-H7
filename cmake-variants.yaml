@@ -28,3 +28,8 @@ board:
       settings:
         MBED_TARGET: FK743M2_IIT6
         UPLOAD_METHOD: STM32CUBE
+    FK743M5_XIH6_STM32CUBE:
+      short: FK743M5_XIH6 STM32CUBE
+      settings:
+        MBED_TARGET: FK743M5_XIH6
+        UPLOAD_METHOD: STM32CUBE
