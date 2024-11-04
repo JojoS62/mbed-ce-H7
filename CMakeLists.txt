@@ -10,8 +10,8 @@ cmake_policy(VERSION 3.19)
 
 # set debug options for unkown targets
 set(STM32CUBE_UPLOAD_ENABLED TRUE)
-set(STM32CUBE_CONNECT_COMMAND "-c port=SWD reset=HWrst")
-set(STM32CUBE_GDBSERVER_ARGS "--swd") 
+set(STM32CUBE_CONNECT_COMMAND -c port=SWD reset=HWrst)
+set(STM32CUBE_GDBSERVER_ARGS --swd --initialize-reset) 
 
 #[[ Set path of mbed_app.json (necessary everytime if mbed_app.json5 is in project) ]]
 set(MBED_APP_JSON_PATH mbed_app.json5)
