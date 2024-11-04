@@ -152,7 +152,7 @@ ErrorStatus SDRAM_Test(void)
 
 int main()
 {
-    // MPU_Config();
+    MPU_Config();
 
     printf("mbed-ce hello-world\n");
     printf("Hello from "  MBED_STRINGIFY(TARGET_NAME) "\n");
@@ -160,11 +160,11 @@ int main()
 	
 	HAL_EnableCompensationCell(); 
 
-    // HAL_SDRAM_MspInit(&hsdram1);    // calls FMC_MspInit for alternative pin config
-	// MX_FMC_Init();
+    HAL_SDRAM_MspInit(&hsdram1);    // calls FMC_MspInit for alternative pin config
+	MX_FMC_Init();
 
-	// SDRAM_Initialization_Sequence(&hsdram1);
-	// SDRAM_Test();
+	SDRAM_Initialization_Sequence(&hsdram1);
+	SDRAM_Test();
 
 	printf("starting mainloop, LED should blink\n");
 	while(true) 
