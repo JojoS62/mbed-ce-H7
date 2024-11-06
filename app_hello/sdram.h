@@ -1,7 +1,8 @@
 #ifndef __USER_SDRAM__H__
 #define __USER_SDRAM__H__
 
-//#include "main.h"
+#include "mbed.h"
+#include "stm32h7xx_hal_sdram.h"
 
 #define SDRAM_Size                (32 * 1024 * 1024)
 #define SDRAM_BANK_ADDR           ((uint32_t)0xC0000000)
@@ -22,7 +23,7 @@
 
 
 void SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram);
-ErrorStatus SDRAM_Test(void);
+HAL_StatusTypeDef SDRAM_Test(void);
 
 
 #endif  //!__USER_SDRAM__H__
