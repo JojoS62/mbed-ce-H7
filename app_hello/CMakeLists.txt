@@ -4,8 +4,7 @@
 add_executable(Hello 
     main.cpp
     sdram.cpp
-    fmc.cpp
-    )
+)
 
 target_link_libraries(Hello mbed-os)
 
