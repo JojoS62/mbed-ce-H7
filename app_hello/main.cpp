@@ -1,5 +1,4 @@
 #include "mbed.h"
-#include "fmc.h"
 #include "sdram.h"
 
 DigitalOut led(LED1);

@@ -2,7 +2,7 @@
 #define __USER_SDRAM__H__
 
 #include "mbed.h"
-#include "stm32h7xx_hal_sdram.h"
+#include "fmc.h"
 
 #define SDRAM_Size                (32 * 1024 * 1024)
 #define SDRAM_BANK_ADDR           ((uint32_t)0xC0000000)
