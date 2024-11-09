@@ -8,12 +8,12 @@ static void MPU_Config(void);
 
 int main()
 {
-    MPU_Config();
-
     printf("mbed-ce hello-world\n");
     printf("Hello from "  MBED_STRINGIFY(TARGET_NAME) "\n");
     printf("Mbed OS version: %d.%d.%d\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
+    printf("SystemCoreClock : %ld MHz\n\n", SystemCoreClock / 1'000'000);
 
+    MPU_Config();
     HAL_EnableCompensationCell();
 
     MX_FMC_Init();
@@ -57,10 +57,10 @@ void MPU_Config(void)
     /* Configure the MPU attributes as WB for SDRAM */
     MPU_InitStruct.Enable = MPU_REGION_ENABLE;
     MPU_InitStruct.Number = MPU_REGION_NUMBER1;
-    MPU_InitStruct.BaseAddress = 0xC0000000;   // SDRAM_ADDRESS;
+    MPU_InitStruct.BaseAddress = SDRAM_BANK_ADDR;   // SDRAM_ADDRESS;
     MPU_InitStruct.Size = MPU_REGION_SIZE_32MB;
     MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
-    MPU_InitStruct.IsBufferable = MPU_ACCESS_BUFFERABLE;
+    MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
     MPU_InitStruct.IsCacheable = MPU_ACCESS_CACHEABLE;
     MPU_InitStruct.IsShareable = MPU_ACCESS_NOT_SHAREABLE;
     MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
