@@ -49,6 +49,7 @@ add_subdirectory(custom_targets)
 ###--------------------------------------------------------------------------------------------------
 ## Add mbed-os subdirectory (necessary everytime)
 add_subdirectory(mbed-os)
+add_subdirectory(mbed-libs)
 
 ###--------------------------------------------------------------------------------------------------
 ## Add another subdirectory, for example subdirectory of a library (if needed)

@@ -1,5 +1,7 @@
 #include "mbed.h"
 #include "sdram.h"
+#include "storage.h"
+
 
 DigitalOut led(LED1);
 
@@ -19,6 +21,10 @@ int main()
 
     SDRAM_Initialization_Sequence(&hsdram1);
     SDRAM_Test();
+
+    printf("print dir\n"); 
+    print_dir(&fs, "/");
+    printf("\n"); 
 
     printf("starting mainloop, LED should blink\n");
     while(true)
