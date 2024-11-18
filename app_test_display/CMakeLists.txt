@@ -3,6 +3,9 @@
 
 add_executable(test_display 
     main.cpp
+    sdram.cpp
+    lcd_fonts.cpp
+    display_ltdc.cpp
 )
 
 target_link_libraries(test_display 
