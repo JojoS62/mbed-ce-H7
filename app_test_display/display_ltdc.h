@@ -44,7 +44,7 @@ class DisplayLTDC : private NonCopyable<DisplayLTDC> {
     void LCD_DrawPoint(uint16_t x, uint16_t y, uint32_t color);
     uint32_t LCD_ReadPoint(uint16_t x, uint16_t y);
     void LCD_DisplayChar(uint16_t x, uint16_t y, uint8_t c);
-    void LCD_DisplayString( uint16_t x, uint16_t y, char *p);
+    void LCD_DisplayString( uint16_t x, uint16_t y, const char *p);
     void LCD_SetTextFont(pFONT *fonts);
     void LCD_DrawImage(uint16_t x, uint16_t y, uint16_t width, uint16_t height, const uint8_t *pImage);
     void LCD_DrawLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);

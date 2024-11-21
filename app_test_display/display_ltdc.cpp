@@ -733,7 +733,7 @@ void DisplayLTDC::LCD_DisplayChar(uint16_t x, uint16_t y, uint8_t c)
     }
 }
 
-void DisplayLTDC::LCD_DisplayString(uint16_t x, uint16_t y, char *p)
+void DisplayLTDC::LCD_DisplayString(uint16_t x, uint16_t y, const char *p)
 {
     while ((x < LCD_Width) && (*p != 0))	//判断显示坐标是否超出显示区域并且字符是否为空字符
     {
