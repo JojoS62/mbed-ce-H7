@@ -65,6 +65,7 @@ project(MbedCEHelloWorld)
 #add_executable(${CMAKE_PROJECT_NAME} main.cpp)
 add_subdirectory(app_hello EXCLUDE_FROM_ALL)
 add_subdirectory(app_test_display EXCLUDE_FROM_ALL)
+add_subdirectory(app_test_sdio EXCLUDE_FROM_ALL)
 
 
 ######################################################################################################
