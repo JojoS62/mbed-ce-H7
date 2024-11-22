@@ -28,7 +28,7 @@ int main()
     display.LCD_SetColor(LCD_YELLOW);
     display.LCD_DisplayString(0, 0, "Hello from Mbed");
 
-    printf("starting mainloop, LED should blink\n");
+    printf("starting mainloop, LED should blink\n\n");
     while(true)
     {
         display.LCD_SetColor(LCD_RED);
