@@ -9,7 +9,7 @@ void print_dir(FileSystem *fs, const char* dirname) {
     struct dirent ent;
 
     // dir.open(fs, dirname);
-    printf("contents of dir: %s\n", dirname);
+    printf("contents of //%s/%s\n", fs->getName(), dirname);
     printf("----------------------------------------------------\n");
 
     while (1) {
