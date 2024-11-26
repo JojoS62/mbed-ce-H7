@@ -1,16 +1,12 @@
 # Copyright (c) 2021 Arm Limited. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-add_executable(Hello 
+add_executable(hello 
     main.cpp
-    sdram.cpp
-    storage.cpp
 )
 
-target_link_libraries(Hello 
+target_link_libraries(hello 
     mbed-os
-    mbed-storage-sdio
-    mbed-storage
 )
 
-mbed_set_post_build(Hello) 
+mbed_set_post_build(hello) 
