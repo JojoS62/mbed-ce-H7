@@ -6,10 +6,13 @@ add_executable(test_display
     sdram.cpp
     lcd_fonts.cpp
     display_ltdc.cpp
+    storage.cpp
 )
 
 target_link_libraries(test_display 
     mbed-os
+    mbed-storage-sdio
+    mbed-storage
 )
 
 mbed_set_post_build(test_display) 

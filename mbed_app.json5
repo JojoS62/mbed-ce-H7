@@ -5,7 +5,8 @@
             "platform.stdio-baud-rate": 115200,
             "platform.stdio-buffered-serial": 1,
             // enable exFAT
-            "fat_chan.ff_fs_exfat" : 1
+            "fat_chan.ff_fs_exfat" : 1,
+            "platform.all-stats-enabled": true
         }
     }
 }
