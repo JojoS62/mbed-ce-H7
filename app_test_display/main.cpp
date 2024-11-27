@@ -12,6 +12,8 @@ uint8_t imageBuf[800*480];
 
 // load bitmap image from file
 void load_bitmap(const char *filename) {
+    led = !led;     // toggle LED
+
     Timer t;
     t.start();
 
@@ -40,9 +42,11 @@ void load_bitmap(const char *filename) {
     // uint32_t height = header[0x16] | header[0x17] << 8 | header[0x18] << 16 | header[0x19] << 24;
     // [[maybe_unused]] volatile uint16_t bitsPerPixel = header[0x1C] | header[0x1D] << 8;
 
-    // read image data
-    uint8_t *imageData = (uint8_t*)(SDRAM_BANK_ADDR);
+    // read image data by using buffer in SRAM
     bmpFile.seek(imageOffset);
+
+    #if 1
+    uint8_t *imageData = (uint8_t*)(SDRAM_BANK_ADDR);
 
     uint32_t bufSize = sizeof(imageBuf);
 
@@ -51,12 +55,23 @@ void load_bitmap(const char *filename) {
 
     bmpFile.read(imageBuf, bufSize);
     memcpy(imageData+bufSize, imageBuf, bufSize);
+    #else
+    uint8_t *imageData = (uint8_t*)(SDRAM_BANK_ADDR);
+    uint8_t *imageBuf = imageData + (2UL << 20);
+
+    uint32_t bufSize = 800*480*2;
+
+    bmpFile.read(imageBuf, bufSize);
+    memcpy(imageData, imageBuf, bufSize);
+    #endif
 
     bmpFile.close();
 
     t.stop();
+
     printf("load_bitmap %s took %.3f ms\n", filename, t.elapsed_time().count() / 1000.0);
     
+    // ThisThread::sleep_for(5s);
 }
 
 int main()
@@ -128,7 +143,6 @@ int main()
         // display.LCD_FillRect(100, 100, 300, 200);
 
         // ThisThread::sleep_for(500ms);
-        led = !led;
     }
 
     return 0;
