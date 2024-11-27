@@ -12,6 +12,9 @@ uint8_t imageBuf[800*480];
 
 // load bitmap image from file
 void load_bitmap(const char *filename) {
+    Timer t;
+    t.start();
+
     File bmpFile;
 
     int rc = bmpFile.open(&fs, filename, O_RDONLY);
@@ -51,6 +54,9 @@ void load_bitmap(const char *filename) {
 
     bmpFile.close();
 
+    t.stop();
+    printf("load_bitmap %s took %.3f ms\n", filename, t.elapsed_time().count() / 1000.0);
+    
 }
 
 int main()
@@ -60,25 +66,25 @@ int main()
     printf("Mbed OS version: %d.%d.%d\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
     printf("SystemCoreClock : %ld MHz\n\n", SystemCoreClock / 1'000'000);
 
-    mbed_stats_heap_t heap_info;
-    mbed_stats_heap_get( &heap_info );
-    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
+    // mbed_stats_heap_t heap_info;
+    // mbed_stats_heap_get( &heap_info );
+    // printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
 
-    uint8_t *p = new uint8_t[1024];
-    for (int i = 0; i < 1024; i++) {
-        p[i] = i;
-    }
+    // uint8_t *p = new uint8_t[1024];
+    // for (int i = 0; i < 1024; i++) {
+    //     p[i] = i;
+    // }
 
-    mbed_stats_heap_get( &heap_info );
-    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
+    // mbed_stats_heap_get( &heap_info );
+    // printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
 
-    uint8_t *p1 = new uint8_t[1024];
-    for (int i = 0; i < 1024; i++) {
-        p1[i] = i;
-    }
+    // uint8_t *p1 = new uint8_t[1024];
+    // for (int i = 0; i < 1024; i++) {
+    //     p1[i] = i;
+    // }
 
-    mbed_stats_heap_get( &heap_info );
-    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
+    // mbed_stats_heap_get( &heap_info );
+    // printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
 
 
     printf("init SDRAM...\n");
@@ -102,16 +108,16 @@ int main()
         // display.LCD_FillRect(100, 100, 300, 200);
 
         load_bitmap("test.bmp");
-        ThisThread::sleep_for(200ms);
+        //ThisThread::sleep_for(200ms);
 
         load_bitmap("test1.bmp");
-        ThisThread::sleep_for(200ms);
+        //ThisThread::sleep_for(200ms);
 
         load_bitmap("test2.bmp");
-        ThisThread::sleep_for(200ms);
+        //ThisThread::sleep_for(200ms);
 
         load_bitmap("test3.bmp");
-        ThisThread::sleep_for(200ms);
+        //ThisThread::sleep_for(200ms);
 
         // // display.LCD_SetColor(LCD_GREEN);
         // // display.LCD_FillRect(100, 100, 300, 200);
