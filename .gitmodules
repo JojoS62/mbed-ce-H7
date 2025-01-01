@@ -8,3 +8,9 @@
 [submodule "mbed-libs/mbed-sdio"]
 	path = mbed-libs/mbed-sdio
 	url = https://github.com/JojoS62/COMPONENT_SDIO.git
+[submodule "mbed-libs/mbed-lvgl/lvgl"]
+	path = mbed-libs/mbed-lvgl/lvgl
+	url = https://github.com/lvgl/lvgl.git
+[submodule "mbed-libs/lvglDriver"]
+	path = mbed-libs/lvglDriver
+	url = https://github.com/JojoS62/lvglDriver.git

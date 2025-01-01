@@ -34,6 +34,8 @@ set(CUSTOM_TARGETS_JSON_PATH custom_targets/custom_targets.json5)
    For more visit https://github.com/mbed-ce/mbed-os/wiki/Upload-Methods ]]
    
 ### End of block
+
+
 ######################################################################################################
 
 ### include app.cmake (necessary everytime) ###
@@ -61,11 +63,14 @@ add_subdirectory(mbed-libs)
 ### Set up your project name (necessary everytime)
 project(MbedCEHelloWorld)
 
+target_compile_definitions(mbed-os PUBLIC  USE_HAL_LTDC_REGISTER_CALLBACKS)
+
 ### add executable (necessary everytime)
 #add_executable(${CMAKE_PROJECT_NAME} main.cpp)
 add_subdirectory(app_hello EXCLUDE_FROM_ALL)
 add_subdirectory(app_test_display EXCLUDE_FROM_ALL)
 add_subdirectory(app_test_sdio EXCLUDE_FROM_ALL)
+add_subdirectory(app_test_lvgl EXCLUDE_FROM_ALL)
 
 
 ######################################################################################################
