@@ -71,6 +71,7 @@ add_subdirectory(app_hello EXCLUDE_FROM_ALL)
 add_subdirectory(app_test_display EXCLUDE_FROM_ALL)
 add_subdirectory(app_test_sdio EXCLUDE_FROM_ALL)
 add_subdirectory(app_test_lvgl EXCLUDE_FROM_ALL)
+add_subdirectory(app_test_heap_stats EXCLUDE_FROM_ALL)
 
 
 ######################################################################################################
