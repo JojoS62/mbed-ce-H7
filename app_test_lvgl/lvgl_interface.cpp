@@ -92,7 +92,7 @@ void lvglThreadFn() {
 
 void lvgl_interface_init() {
     LVGLDispDriver*  lvglDisplay = LVGLDispDriver::get_target_default_instance();
-    //LVGLInputDriver::get_target_default_instance_touchdrv(lvglDisplay);
+    LVGLInputDriver::get_target_default_instance_touchdrv(lvglDisplay);
 
     // start threads
     tickerLvgl.attach(&fnLvTicker, 2ms);
