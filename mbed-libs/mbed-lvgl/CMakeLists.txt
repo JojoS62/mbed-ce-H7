@@ -11,18 +11,11 @@ target_include_directories(lvgl_interface
     INTERFACE
         .
         lvgl
-        lvgl/lv_core
-        lvgl/lv_draw
-        lvgl/lv_font
-        lvgl/lv_gpu
-        lvgl/lv_hal
-        lvgl/lv_misc
-        lvgl/lv_objx
-        lvgl/lv_themes
-        lvgl/lv_widgets
 )
+
+# target_compile_options(lvgl_interface INTERFACE -O2)
 
 target_link_libraries(lvgl_interface
     INTERFACE
         mbed-rtos-flags
-)
+        )
