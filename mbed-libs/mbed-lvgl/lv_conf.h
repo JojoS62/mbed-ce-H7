@@ -14,6 +14,8 @@
 /* clang-format off */
 #if 1 /* Set this to "1" to enable content */
 
+#include "mbed_retarget.h"
+
 #ifndef LV_CONF_H
 #define LV_CONF_H
 
@@ -791,13 +793,13 @@
 /* File system interfaces for common APIs */
 
 /** Setting a default driver letter allows skipping the driver prefix in filepaths. */
-#define LV_FS_DEFAULT_DRIVE_LETTER '\0'
+// #define LV_FS_DEFAULT_DRIVE_LETTER '\0'
 
 /** API for fopen, fread, etc. */
-#define LV_USE_FS_STDIO 0
+#define LV_USE_FS_STDIO 1
 #if LV_USE_FS_STDIO
-    #define LV_FS_STDIO_LETTER '\0'     /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
-    #define LV_FS_STDIO_PATH ""         /**< Set the working directory. File/directory paths will be appended to it. */
+    #define LV_FS_STDIO_LETTER 'C'     /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
+    #define LV_FS_STDIO_PATH "//sda/"         /**< Set the working directory. File/directory paths will be appended to it. */
     #define LV_FS_STDIO_CACHE_SIZE 0    /**< >0 to cache this number of bytes in lv_fs_read() */
 #endif
 
@@ -805,7 +807,7 @@
 #define LV_USE_FS_POSIX 0
 #if LV_USE_FS_POSIX
     #define LV_FS_POSIX_LETTER '\0'     /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
-    #define LV_FS_POSIX_PATH ""         /**< Set the working directory. File/directory paths will be appended to it. */
+    #define LV_FS_POSIX_PATH "sda"         /**< Set the working directory. File/directory paths will be appended to it. */
     #define LV_FS_POSIX_CACHE_SIZE 0    /**< >0 to cache this number of bytes in lv_fs_read() */
 #endif
 
