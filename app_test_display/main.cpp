@@ -1,4 +1,5 @@
 #include "mbed.h"
+#include "mbed_boot.h"
 #include "sdram.h"
 #include "display_ltdc.h"
 #include "storage.h"
@@ -76,39 +77,23 @@ void load_bitmap(const char *filename) {
 
 int main()
 {
-    printf("Test FK743 5\" display\n");
-    printf("Hello from "  MBED_STRINGIFY(TARGET_NAME) "\n");
-    printf("Mbed OS version: %d.%d.%d\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
-    printf("SystemCoreClock : %ld MHz\n\n", SystemCoreClock / 1'000'000);
-
-    // mbed_stats_heap_t heap_info;
-    // mbed_stats_heap_get( &heap_info );
-    // printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
-
-    // uint8_t *p = new uint8_t[1024];
-    // for (int i = 0; i < 1024; i++) {
-    //     p[i] = i;
-    // }
-
-    // mbed_stats_heap_get( &heap_info );
-    // printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
-
-    // uint8_t *p1 = new uint8_t[1024];
-    // for (int i = 0; i < 1024; i++) {
-    //     p1[i] = i;
-    // }
-
-    // mbed_stats_heap_get( &heap_info );
-    // printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
-
-
-    printf("init SDRAM...\n");
     MPU_Config();
     HAL_EnableCompensationCell();
 
+    printf("Test FK743 5\" display\n");
+    printf("Hello from "  MBED_STRINGIFY(TARGET_NAME) "\n");
+    printf("Mbed OS version: %d.%d.%d\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
+    printf("SystemCoreClock : %ld MHz  heap size: %ld\n\n", SystemCoreClock / 1'000'000, mbed_heap_size_total);
+
+    mbed_stats_heap_t heap_info;
+    mbed_stats_heap_get( &heap_info );
+    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
+
+    printf("init SDRAM...\n");
     MX_FMC_Init();
 
     SDRAM_Initialization_Sequence(&hsdram1);
+    SDRAM_Test();
 
     printf("init display...\n");
     display.LCD_Init();
@@ -117,22 +102,23 @@ int main()
 
 
     printf("starting mainloop, LED should blink\n\n");
+
     while(true)
     {
         // display.LCD_SetColor(LCD_RED);
         // display.LCD_FillRect(100, 100, 300, 200);
 
         load_bitmap("test.bmp");
-        //ThisThread::sleep_for(200ms);
+        ThisThread::sleep_for(2000ms);
 
         load_bitmap("test1.bmp");
-        //ThisThread::sleep_for(200ms);
+        ThisThread::sleep_for(2000ms);
 
         load_bitmap("test2.bmp");
-        //ThisThread::sleep_for(200ms);
+        ThisThread::sleep_for(2000ms);
 
         load_bitmap("test3.bmp");
-        //ThisThread::sleep_for(200ms);
+        ThisThread::sleep_for(2000ms);
 
         // // display.LCD_SetColor(LCD_GREEN);
         // // display.LCD_FillRect(100, 100, 300, 200);
@@ -142,6 +128,8 @@ int main()
         // display.LCD_SetColor(LCD_BLUE);
         // display.LCD_FillRect(100, 100, 300, 200);
 
+
+        // led = !led;     // toggle LED
         // ThisThread::sleep_for(500ms);
     }
 

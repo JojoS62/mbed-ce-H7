@@ -3,6 +3,11 @@
 #include "mbed.h"
 #include "lcd_fonts.h"
 
+#define LCD_Width     		800						//	LCD的像素长度
+#define LCD_Height    		480						//	LCD的像素宽度
+#define LCD_MemoryAdd   	((uint32_t)0xC0000000)  //SDRAM_BANK_ADDR 		//	显存的起始地址  
+
+
 #define 	LCD_WHITE       0xffFFFFFF		// 纯白色
 #define 	LCD_BLACK       0xff000000		// 纯黑色
                            
@@ -57,7 +62,6 @@ class DisplayLTDC : private NonCopyable<DisplayLTDC> {
 
     private:
     DMA2D_HandleTypeDef hdma2d;	
-    LTDC_HandleTypeDef hltdc;
 
     pFONT *Fonts;		// English Font
     pFONT *CHFonts;		// Chinese Font
