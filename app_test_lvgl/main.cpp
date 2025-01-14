@@ -3,15 +3,20 @@
 #include "display_ltdc.h"
 #include "storage.h"
 #include "lvgl_interface.h"
+#include "mbed_trace.h"
 
 static void MPU_Config(void);
 
 DigitalOut led(LED1);
+uint16_t Counter;
 
 int main()
 {
     // SCB_CleanDCache();
     // SCB_DisableDCache();
+
+    // Trace enable
+    // mbed_trace_init();
 
     MPU_Config();
     HAL_EnableCompensationCell();
@@ -22,26 +27,9 @@ int main()
     printf("SystemCoreClock : %ld MHz\n\n", SystemCoreClock / 1'000'000);
     fflush(stdout);
 
-    // mbed_stats_heap_t heap_info;
-    // mbed_stats_heap_get( &heap_info );
-    // printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
-
-    // uint8_t *p = new uint8_t[1024];
-    // for (int i = 0; i < 1024; i++) {
-    //     p[i] = i;
-    // }
-
-    // mbed_stats_heap_get( &heap_info );
-    // printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
-
-    // uint8_t *p1 = new uint8_t[1024];
-    // for (int i = 0; i < 1024; i++) {
-    //     p1[i] = i;
-    // }
-
-    // mbed_stats_heap_get( &heap_info );
-    // printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
-
+    mbed_stats_heap_t heap_info;
+    mbed_stats_heap_get( &heap_info );
+    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
 
     printf("init SDRAM...\n");
     fflush(stdout);
@@ -50,14 +38,21 @@ int main()
 
     SDRAM_Initialization_Sequence(&hsdram1);
 
+    init_storage();
+    print_dir(&fs, "/");
+
     printf("starting mainloop, LED should blink\n\n");
     
     lvgl_interface_init();
     
+    mbed_stats_heap_get( &heap_info );
+    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
+
     while(true)
     {
         ThisThread::sleep_for(200ms);
         led = !led;
+        Counter++;
     }
 
     return 0;
