@@ -1,4 +1,5 @@
 #include "mbed.h"
+#include "mbed_boot.h"
 #include "sdram.h"
 #include "display_ltdc.h"
 #include "storage.h"
@@ -24,7 +25,7 @@ int main()
     printf("Test FK743 lvgl\n");
     printf("Hello from "  MBED_STRINGIFY(TARGET_NAME) "\n");
     printf("Mbed OS version: %d.%d.%d\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
-    printf("SystemCoreClock : %ld MHz\n\n", SystemCoreClock / 1'000'000);
+    printf("SystemCoreClock : %ld MHz  heap size: %ld\n\n", SystemCoreClock / 1'000'000, mbed_heap_size_total);
     fflush(stdout);
 
     mbed_stats_heap_t heap_info;
