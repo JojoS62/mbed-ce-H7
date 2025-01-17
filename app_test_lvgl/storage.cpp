@@ -3,12 +3,23 @@
 
 SDIOBlockDevice bd;
 FATFileSystem fs("sda");
+USBMSD msd(&bd);
+Thread USBThread(osPriorityBelowNormal, 2048, NULL, "USBThread");
+
+void USBTask() {
+    while (1) {
+        msd.process();
+        // ThisThread::sleep_for(10ms);
+    }
+}
 
 int init_storage() {
     int err = 0;
     fs.unmount();
     err = fs.mount(&bd);
-    
+
+    USBThread.start(USBTask);
+
     return err;
 }
 

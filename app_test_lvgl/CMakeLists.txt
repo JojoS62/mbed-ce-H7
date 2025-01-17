@@ -18,6 +18,7 @@ target_link_libraries(test_lvgl
     mbed-os
     mbed-storage-sdio
     mbed-storage
+    mbed-usb-msd
     lvglDriver
 )
 
