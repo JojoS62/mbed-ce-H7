@@ -41,8 +41,9 @@ int main()
     print_heap_info();
 
     // test memalign
-    uint8_t *p3 = (uint8_t*)memalign(32, 2*1024 - 6);
-    printf("p3: %p alloc 10240 bytes\n", p3);
+    size_t alloc_size = 2*1024 - 6;
+    uint8_t *p3 = (uint8_t*)memalign(32, alloc_size);
+    printf("p3: %p alloc %zu bytes\n", p3, alloc_size);
     print_heap_info();
 
     printf("free p3\n");
