@@ -7,7 +7,7 @@
             // enable exFAT
             "fat_chan.ff_fs_exfat" : 1,
             "fat_chan.ffs_dbg" : 0,
-            "platform.all-stats-enabled": null,
+            "platform.heap-stats-enabled": 1,  // null to disable
             "mbed-trace.enable": 0,
             "mbed-trace.max-level": "TRACE_LEVEL_INFO"
         }

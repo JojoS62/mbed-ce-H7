@@ -1,44 +1,53 @@
 #include "mbed.h"
 #include "mbed_boot.h"
-
+#include "malloc.h"
 
 DigitalOut led(LED1);
 
+void print_heap_info()
+{
+    mbed_stats_heap_t heap_info;
+    mbed_stats_heap_get( &heap_info );
+    printf("heap max: %ld current: %ld reserved: %ld overhead: %ld alloc_cnt: %ld \n\n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.overhead_size, heap_info.alloc_cnt);
+    fflush(stdout);
+}
+
 int main()
 {
-    printf("mbed-ce test heap statistics\n");
+    print_heap_info();
+
+    printf("\nmbed-ce test heap statistics\n");
     printf("Hello from "  MBED_STRINGIFY(TARGET_NAME) "\n");
     printf("Mbed OS version: %d.%d.%d\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
     printf("SystemCoreClock : %ld MHz  heap size: %ld\n\n", SystemCoreClock / 1'000'000, mbed_heap_size_total);
 
-    mbed_stats_heap_t heap_info;
-    mbed_stats_heap_get( &heap_info );
-    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
-
-    uint8_t *p = new uint8_t[10*1024];
-    for (int i = 0; i < 1024; i++) {
-        p[i] = i;
-    }
-
-    mbed_stats_heap_get( &heap_info );
-    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
+    print_heap_info();
 
     uint8_t *p1 = new uint8_t[10*1024];
-    for (int i = 0; i < 1024; i++) {
-        p1[i] = i;
-    }
+    printf("p1: %p alloc 10240 bytes\n", p1);
 
-    mbed_stats_heap_get( &heap_info );
-    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
+    print_heap_info();
 
+    uint8_t *p2 = new uint8_t[10*1024];
+    printf("p2: %p alloc 10240 bytes\n", p2);
+    print_heap_info();
+
+    printf("delete p2\n");
+    delete[] p2;
+    print_heap_info();
+
+    printf("delete p1\n");
     delete[] p1;
-    mbed_stats_heap_get( &heap_info );
-    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
+    print_heap_info();
 
-    delete[] p;
-    mbed_stats_heap_get( &heap_info );
-    printf("heap max: %ld current: %ld reserved: %ld alloc_cnt: %ld \n", heap_info.max_size, heap_info.current_size, heap_info.reserved_size, heap_info.alloc_cnt);
+    // test memalign
+    uint8_t *p3 = (uint8_t*)memalign(32, 2*1024 - 6);
+    printf("p3: %p alloc 10240 bytes\n", p3);
+    print_heap_info();
 
+    printf("free p3\n");
+    free(p3);
+    print_heap_info();
 
     printf("starting mainloop, LED should blink\n");
     while(true)
